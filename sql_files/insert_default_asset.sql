@@ -1,0 +1,2 @@
+INSERT INTO water_utility_assets (asset_id, asset_type, location, installation_date, manufacturer, model, capacity, maintenance_schedule) VALUES ('ASSET_DEFAULT', 'Default', 'Unknown', TO_DATE('2024-01-01', 'YYYY-MM-DD'), 'Unknown', 'Unknown', 0, 'As needed');
+COMMIT; 

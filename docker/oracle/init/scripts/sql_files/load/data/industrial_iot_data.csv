@@ -1,0 +1,5 @@
+1,Water Quality Sensor A,Quality Sensor,North Plant,Active,95,2024-03-01 08:00:00,85,90
+2,Pressure Monitor B,Pressure Sensor,South Plant,Active,75,2024-03-01 08:00:00,90,95
+3,Flow Meter C,Flow Sensor,East Plant,Maintenance,0,2024-03-01 08:00:00,60,85
+4,Temperature Sensor D,Temp Sensor,West Plant,Active,25,2024-03-01 08:00:00,95,100
+5,Level Indicator E,Level Sensor,Central Plant,Active,85,2024-03-01 08:00:00,80,90 

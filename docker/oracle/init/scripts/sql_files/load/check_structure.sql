@@ -1,0 +1,16 @@
+SET ECHO OFF
+SET FEEDBACK OFF
+SET VERIFY OFF
+SET LINESIZE 200
+SET PAGESIZE 1000
+
+SELECT 'WATER_UTILITY_ASSETS structure:' FROM dual;
+DESC water_utility_assets;
+
+SELECT 'WORKFORCE_ATTENDANCE structure:' FROM dual;
+DESC workforce_attendance;
+
+SELECT 'INDUSTRIAL_IOT_DATA structure:' FROM dual;
+DESC industrial_iot_data;
+
+EXIT; 

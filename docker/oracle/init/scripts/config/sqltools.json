@@ -1,0 +1,38 @@
+{
+    "connections": {
+        "Oracle_SYSDBA": {
+            "name": "Oracle SYSDBA",
+            "driver": "Oracle",
+            "server": "localhost",
+            "port": 1521,
+            "database": "FREEPDB1",
+            "username": "sys",
+            "password": "password",
+            "connectionTimeout": 15,
+            "askForPassword": false,
+            "connectionProperties": {
+                "privilege": "SYSDBA"
+            }
+        },
+        "Oracle_App_User": {
+            "name": "Oracle Application User",
+            "driver": "Oracle",
+            "server": "localhost",
+            "port": 1521,
+            "database": "FREEPDB1",
+            "username": "app_user",
+            "password": "password",
+            "connectionTimeout": 15,
+            "askForPassword": false
+        }
+    },
+    "settings": {
+        "sql.format.keyword.case": "upper",
+        "sql.format.dataType.case": "upper",
+        "sql.format.linesBetweenQueries": 2,
+        "sql.format.maxLineLength": 80,
+        "sql.results.location": "next",
+        "sql.results.limit": 1000,
+        "sql.linter.run": "onSave"
+    }
+}

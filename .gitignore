@@ -1,37 +1,64 @@
 # Python
 __pycache__/
 *.py[cod]
+*$py.class
 *.so
 .Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
 *.egg-info/
-.installed.cfg
-*.egg
-.python-version
+.installed
+.cfg
 
 # Virtual Environment
 venv/
 ENV/
 env/
-.env
 
 # IDE
-.vscode/
-*.code-workspace
 .idea/
+.vscode/
+*.swp
+*.swo
 
 # Docker
 .docker/
-*.env
+docker-compose.override.yml
+
+# Logs
+*.log
+logs/
+
+# Local development
+.env
+.env.local
+.env.*.local
+
+# Backup files
+backup_config/
+2_1_minio_copy/
+
+# System files
+.DS_Store
+Thumbs.db
 
 # Temporary files
-*.log
 *.pid
 temp_*
 *.tmp
 supervisord.*
 
 # macOS
-.DS_Store
 .AppleDouble
 .LSOverride
 

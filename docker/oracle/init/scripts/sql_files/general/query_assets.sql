@@ -1,0 +1,3 @@
+SET LINESIZE 200
+SET PAGESIZE 50
+SELECT * FROM water_utility_assets; 

@@ -1,0 +1,42 @@
+SET LINESIZE 200
+SET PAGESIZE 50
+
+-- Function to check table data
+CREATE OR REPLACE FUNCTION check_table_data(p_table_name IN VARCHAR2)
+RETURN VARCHAR2 IS
+    v_count NUMBER;
+    v_result VARCHAR2(200);
+BEGIN
+    EXECUTE IMMEDIATE 'SELECT COUNT(*) FROM ' || p_table_name INTO v_count;
+    v_result := p_table_name || ': ' || v_count || ' rows';
+    RETURN v_result;
+EXCEPTION
+    WHEN OTHERS THEN
+        RETURN p_table_name || ': Error - ' || SQLERRM;
+END;
+/
+
+-- Check all tables
+SELECT check_table_data('ADVISOR_DATA') as status FROM DUAL UNION ALL
+SELECT check_table_data('CLIENT_PORTFOLIOS') FROM DUAL UNION ALL
+SELECT check_table_data('INVESTMENT_PRODUCTS') FROM DUAL UNION ALL
+SELECT check_table_data('INTEREST_RATES') FROM DUAL UNION ALL
+SELECT check_table_data('TRADING_ACTIVITY') FROM DUAL UNION ALL
+SELECT check_table_data('SECTOR_PERFORMANCE') FROM DUAL UNION ALL
+SELECT check_table_data('WATER_UTILITY_ASSETS') FROM DUAL UNION ALL
+SELECT check_table_data('WATER_UTILITIES_WORK_ORDERS') FROM DUAL UNION ALL
+SELECT check_table_data('PULSE_SURVEYS') FROM DUAL UNION ALL
+SELECT check_table_data('INDUSTRIAL_IOT_DATA') FROM DUAL UNION ALL
+SELECT check_table_data('INDUSTRIAL_MAINTENANCE') FROM DUAL UNION ALL
+SELECT check_table_data('INDUSTRIAL_PERFORMANCE') FROM DUAL UNION ALL
+SELECT check_table_data('INDUSTRIAL_SAFETY') FROM DUAL UNION ALL
+SELECT check_table_data('WORKFORCE_ATTENDANCE') FROM DUAL UNION ALL
+SELECT check_table_data('WORKFORCE_PERFORMANCE') FROM DUAL UNION ALL
+SELECT check_table_data('WORKFORCE_SKILLS') FROM DUAL UNION ALL
+SELECT check_table_data('WORKFORCE_TRAINING') FROM DUAL UNION ALL
+SELECT check_table_data('WORKFORCE_SCHEDULING') FROM DUAL UNION ALL
+SELECT check_table_data('WORKFORCE_LEAVE') FROM DUAL
+ORDER BY status;
+
+-- Drop the function after use
+DROP FUNCTION check_table_data; 

@@ -1,0 +1,13 @@
+{
+    "oracle.connection.name": "FREE",
+    "oracle.connection.host": "SQL_PY_Sandbox-oracle",
+    "oracle.connection.port": 1521,
+    "oracle.connection.serviceName": "FREE",
+    "oracle.connection.username": "system",
+    "oracle.connection.password": "oracle",
+    "oracle.connection.role": "DEFAULT",
+    "oracle.connection.instantClient": "/opt/oracle/instantclient_21_9",
+    "oracle.connection.tnsAdmin": "/opt/oracle/instantclient_21_9/network/admin",
+    "oracle.connection.connectionType": "Basic",
+    "oracle.connection.savePassword": false
+}

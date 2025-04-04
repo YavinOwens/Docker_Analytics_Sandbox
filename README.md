@@ -2,18 +2,35 @@
 
 A comprehensive, containerized development environment for data analysts and data engineers, providing enterprise-grade tools at minimal cost. This project enables rapid development and testing of data pipelines, analytics workflows, and SaaS prototypes using industry-standard technologies.
 
+## 🎓 Free for Education
+This project is completely free for:
+- University Students
+- College Students
+- Educational Institutions
+- Self-Learners
+- Anyone without access to paid subscription services
+
+We believe in making enterprise-grade development tools accessible to everyone, especially students and learners who may not have access to expensive commercial solutions.
+
 ![Docker Environment Screenshot](./docs/images/docker_desktop.png)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Overview
 
-This sandbox environment combines powerful data tools into a cohesive development platform:
+This sandbox environment combines powerful data tools into a cohesive development platform, making enterprise tools accessible for educational purposes:
 
-- **Oracle Database**: Enterprise-grade relational database for robust data storage and complex SQL operations
-- **MinIO**: S3-compatible object storage for handling large datasets and unstructured data
+- **Oracle Database**: Enterprise-grade relational database for learning SQL and database management
+- **MinIO**: S3-compatible object storage for understanding modern data lake architectures
 - **VS Code Server**: Browser-based IDE with full development capabilities
-- **Ollama**: Local AI model integration for code assistance and data analysis
+- **Ollama**: Local AI model integration for learning AI/ML workflows
+
+### Educational Benefits
+- **No Subscription Costs**: Complete development environment at zero cost
+- **Industry-Standard Tools**: Learn the same tools used in enterprise environments
+- **Hands-On Experience**: Practical experience with real-world technologies
+- **Local Development**: No cloud costs or credit card required
+- **Comprehensive Learning**: From basic SQL to advanced data engineering
 
 Current Resource Usage (as of April 2024):
 - CPU Usage: 7.08% of 800% (8 CPUs available)
@@ -156,3 +173,17 @@ Copyright (c) 2025 Yavin Owens and Anurag Ranjan
 Contributions are welcome! Please feel free to submit a Pull Request. Make sure to read the [Contributing Guidelines](CONTRIBUTING.md) first.
 
 For major changes, please open an issue first to discuss what you would like to change.
+
+## Support for Students
+
+### Getting Started Guide for Students
+1. Install Docker Desktop (free for educational use)
+2. Clone this repository
+3. Follow the setup instructions above
+4. Join our community discussions for help
+
+### Educational Resources
+- Check our [Wiki](../../wiki) for tutorials
+- Sample datasets for learning
+- Practice exercises and projects
+- Community support for students

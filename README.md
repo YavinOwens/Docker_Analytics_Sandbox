@@ -16,6 +16,16 @@ We believe in making enterprise-grade development tools accessible to everyone, 
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+## Component Licenses
+
+This project integrates several components, each with its own license:
+- Oracle Database XE: [OTN License Agreement](https://www.oracle.com/downloads/licenses/database-11g-express-edition-license.html)
+- Docker: [Apache License 2.0](https://www.docker.com/legal/components-licenses)
+- MinIO: [GNU AGPL v3](https://github.com/minio/minio/blob/master/LICENSE)
+- VS Code Server: [MIT License](https://github.com/microsoft/vscode/blob/main/LICENSE.txt)
+
+See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) for detailed licensing information.
+
 ## Overview
 
 This sandbox environment combines powerful data tools into a cohesive development platform, making enterprise tools accessible for educational purposes:
@@ -165,8 +175,9 @@ External Endpoint: http://localhost:11434
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+Component licenses are detailed in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
-Copyright (c) 2025 Yavin Owens and Anurag Ranjan
+Copyright (c) 2025 Yavin Owens
 
 ## Contributing
 

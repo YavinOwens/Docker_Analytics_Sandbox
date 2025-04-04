@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2025 Yavin Owens and Anurag Ranjan
+Copyright (c) 2025 Yavin Owens
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +20,10 @@ including but not limited to:
 - Educational institutions
 - Self-learners
 - Individuals without access to paid subscription services
-We encourage educational use and learning with this software.
+
+THIRD-PARTY COMPONENTS:
+This project includes third-party components with their own licenses.
+See THIRD_PARTY_NOTICES.md for details and compliance requirements.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,

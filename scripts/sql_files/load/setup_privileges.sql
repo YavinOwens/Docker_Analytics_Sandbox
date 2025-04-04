@@ -1,0 +1,19 @@
+SET ECHO ON
+SET FEEDBACK ON
+SET LINESIZE 200
+SET PAGESIZE 1000
+SET SERVEROUTPUT ON
+
+-- Create directory
+CREATE OR REPLACE DIRECTORY data_dir AS '/opt/oracle/scripts/data';
+
+-- Grant necessary privileges to app_user
+GRANT READ ON DIRECTORY data_dir TO app_user;
+GRANT WRITE ON DIRECTORY data_dir TO app_user;
+GRANT CREATE TABLE TO app_user;
+GRANT CREATE ANY DIRECTORY TO app_user;
+GRANT DROP ANY DIRECTORY TO app_user;
+GRANT CREATE ANY TABLE TO app_user;
+GRANT UNLIMITED TABLESPACE TO app_user;
+
+EXIT; 

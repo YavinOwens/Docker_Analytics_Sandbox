@@ -1,0 +1,47 @@
+FROM codercom/code-server:latest
+
+# Install required packages
+RUN sudo apt-get update && \
+    sudo apt-get install -y \
+    curl \
+    libaio1 \
+    python3-pip \
+    alien \
+    default-jdk \
+    wget \
+    unzip \
+    netcat-traditional \
+    && sudo rm -rf /var/lib/apt/lists/*
+
+# Install Oracle Instant Client
+RUN sudo mkdir -p /opt/oracle && \
+    cd /opt/oracle && \
+    sudo wget https://download.oracle.com/otn_software/linux/instantclient/instantclient-basic-linuxx64.zip && \
+    sudo unzip instantclient-basic-linuxx64.zip && \
+    sudo rm instantclient-basic-linuxx64.zip && \
+    sudo sh -c "echo /opt/oracle/instantclient* > /etc/ld.so.conf.d/oracle-instantclient.conf" && \
+    sudo ldconfig
+
+# Set environment variables for Oracle
+ENV ORACLE_HOME=/opt/oracle/instantclient*
+ENV LD_LIBRARY_PATH=$ORACLE_HOME:$LD_LIBRARY_PATH
+ENV PATH=$ORACLE_HOME:$PATH
+
+# Create necessary directories and set permissions
+RUN sudo mkdir -p /home/coder/workspace && \
+    sudo mkdir -p /home/coder/.config && \
+    sudo chown -R coder:coder /home/coder/workspace && \
+    sudo chown -R coder:coder /home/coder/.config
+
+# Copy scripts
+COPY entrypoint.sh /entrypoint.sh
+COPY setup-workspace.sh /home/coder/setup-workspace.sh
+
+# Set permissions
+RUN sudo chmod +x /entrypoint.sh && \
+    sudo chmod +x /home/coder/setup-workspace.sh && \
+    sudo chown coder:coder /entrypoint.sh && \
+    sudo chown coder:coder /home/coder/setup-workspace.sh
+
+USER coder
+ENTRYPOINT ["/entrypoint.sh"]

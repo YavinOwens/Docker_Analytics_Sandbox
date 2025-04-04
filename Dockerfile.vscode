@@ -1,0 +1,88 @@
+FROM codercom/code-server:latest
+
+USER root
+
+# Install required packages
+RUN apt-get update && \
+    apt-get install -y \
+    python3 \
+    python3-pip \
+    python3-venv \
+    libaio1 \
+    wget \
+    unzip \
+    libc6 \
+    libstdc++6 \
+    libgcc1 \
+    libgomp1 \
+    libatomic1 \
+    libnspr4 \
+    libnss3 \
+    libnss3-dev \
+    libcups2 \
+    libx11-6 \
+    libx11-xcb1 \
+    libxcb1 \
+    libxcomposite1 \
+    libxcursor1 \
+    libxdamage1 \
+    libxext6 \
+    libxfixes3 \
+    libxi6 \
+    libxrandr2 \
+    libxrender1 \
+    libxss1 \
+    libxtst6 \
+    libglib2.0-0 \
+    libatk1.0-0 \
+    libatk-bridge2.0-0 \
+    libdrm2 \
+    libxkbcommon0 \
+    libgbm1 \
+    libasound2 \
+    alien
+
+# Download and install Oracle Instant Client
+RUN mkdir -p /opt/oracle && \
+    cd /opt/oracle && \
+    wget https://download.oracle.com/otn_software/linux/instantclient/219000/instantclient-basic-linux.x64-21.9.0.0.0dbru.zip && \
+    unzip instantclient-basic-linux.x64-21.9.0.0.0dbru.zip && \
+    rm instantclient-basic-linux.x64-21.9.0.0.0dbru.zip && \
+    mv instantclient_21_9 instantclient_21_9 && \
+    cd instantclient_21_9 && \
+    ln -s libclntsh.so.21.1 libclntsh.so && \
+    ln -s libocci.so.21.1 libocci.so && \
+    ldconfig
+
+# Set environment variables
+ENV ORACLE_HOME=/opt/oracle/instantclient_21_9
+ENV LD_LIBRARY_PATH=/opt/oracle/instantclient_21_9
+ENV TNS_ADMIN=/opt/oracle/instantclient_21_9/network/admin
+ENV PATH=/opt/oracle/instantclient_21_9:$PATH
+
+# Create Python virtual environment
+RUN python3 -m venv /opt/venv && \
+    chown -R coder:coder /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+
+# Install Python packages
+RUN pip install --no-cache-dir \
+    minio \
+    python-dotenv \
+    cx_Oracle
+
+# Install VSCode Python extension
+RUN code-server --install-extension ms-python.python
+
+# Create workspace directory and set permissions
+RUN mkdir -p /home/coder/project && \
+    chown -R coder:coder /home/coder
+
+USER coder
+WORKDIR /home/coder/project
+
+# Expose code-server port
+EXPOSE 8080
+
+# Start code-server
+CMD ["code-server", "--bind-addr", "0.0.0.0:8080", "--auth", "none"]

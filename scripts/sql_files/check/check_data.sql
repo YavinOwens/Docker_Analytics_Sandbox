@@ -1,0 +1,1 @@
+SELECT COUNT(*) FROM water_utility_assets; 

@@ -1,0 +1,39 @@
+bind-addr: 0.0.0.0:8443
+auth: password
+password: password
+cert: false
+user-data-dir: /config/data
+extensions-dir: /config/extensions
+workspace: /config/workspace/.vscode/workspace.code-workspace
+
+name: Local Assistant
+version: 1.0.0
+schema: v1
+models: []
+context:
+  - provider: code
+  - provider: docs
+  - provider: diff
+  - provider: terminal
+  - provider: problems
+  - provider: folder
+  - provider: codebase
+
+# Ollama Configuration
+ollama:
+  models:
+    - name: llama3.1:8b
+      type: chat
+    - name: qwen2.5-coder:1.5b-base
+      type: autocomplete
+    - name: nomic-embed-text:latest
+      type: embeddings
+
+# VS Code Extensions
+extensions:
+  - Oracle.sql-developer
+
+# Workspace Settings
+settings:
+  "sqlDeveloper.connections": []
+  "sqlDeveloper.defaultConnection": null

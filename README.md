@@ -4,6 +4,8 @@ A comprehensive, containerized development environment for data analysts and dat
 
 ![Docker Environment Screenshot](./docs/images/docker_desktop.png)
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 ## Overview
 
 This sandbox environment combines powerful data tools into a cohesive development platform:
@@ -143,10 +145,14 @@ External Endpoint: http://localhost:11434
 - Verify extension installations
 - Check Ollama connectivity for AI features
 
-## Contributing
-
-Contributions are welcome! Please read our contributing guidelines and submit pull requests to help improve the project.
-
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+Copyright (c) 2025 Yavin Owens
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request. Make sure to read the [Contributing Guidelines](CONTRIBUTING.md) first.
+
+For major changes, please open an issue first to discuss what you would like to change.

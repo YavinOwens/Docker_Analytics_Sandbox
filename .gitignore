@@ -139,3 +139,17 @@ minio.exe
 *.sqlite3
 *.dump
 *.backup
+
+# Oracle data files
+docker/oracle-ide/oracle-data/**/*.dbf
+docker/oracle-ide/oracle-data/**/*.ctl
+docker/oracle-ide/oracle-data/**/*.ora
+docker/oracle-ide/oracle-data/**/*.log
+docker/oracle-ide/oracle-data/**/*.arc
+docker/oracle-ide/oracle-data/**/*.dmp
+docker/oracle-ide/oracle-data/**/*.pdb
+docker/oracle-ide/oracle-data/**/orapw*
+docker/oracle-ide/oracle-data/**/spfile*
+docker/oracle-ide/oracle-data/**/listener*
+docker/oracle-ide/oracle-data/**/sqlnet*
+docker/oracle-ide/oracle-data/**/tnsnames*

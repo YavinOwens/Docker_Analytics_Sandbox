@@ -86,6 +86,30 @@ instantclient-*
 instantclient_*
 oracle-xe-*
 oracle-instantclient-*
+*.dbf
+*.ora
+*.log
+*.ctl
+*.arc
+*.dmp
+*.pdb
+*.pdbseed
+*.pdbseed.ora
+*.pdbseed.dbf
+*.pdbseed.log
+*.pdbseed.ctl
+*.pdbseed.arc
+*.pdbseed.dmp
+*.pdbseed.pdb
+*.pdbseed.pdbseed
+*.pdbseed.pdbseed.ora
+*.pdbseed.pdbseed.dbf
+*.pdbseed.pdbseed.log
+*.pdbseed.pdbseed.ctl
+*.pdbseed.pdbseed.arc
+*.pdbseed.pdbseed.dmp
+*.pdbseed.pdbseed.pdb
+*.pdbseed.pdbseed.pdbseed
 
 # Large binary files
 *.jar

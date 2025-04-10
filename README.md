@@ -1,6 +1,89 @@
 # Docker Analytics Sandbox
 
-A comprehensive, containerized development environment for data analysts and data engineers, providing enterprise-grade tools at minimal cost. This project enables rapid development and testing of data pipelines, analytics workflows, and SaaS prototypes using industry-standard technologies.
+This project sets up a Dockerized environment for data analytics, engineering, and AI development.
+
+## Services
+
+*   **IDE:** VS Code (code-server) based environment with Python and necessary clients.
+*   **Spark Cluster:** Apache Spark master and worker nodes.
+*   **Database:** Oracle Free database.
+*   **Object Storage:** Minio (S3 compatible).
+*   **AI - Vector DB:** Qdrant.
+*   **AI - LLM Runner:** Ollama.
+*   **AI - Flow Builder:** Langflow.
+*   **Integration Service:** Custom Python service (details in `Dockerfile.integration`).
+
+## Python Requirements
+
+The following Python packages are used across the different services (primarily IDE and Integration):
+
+```
+# From requirements.txt (Integration Service & potentially IDE)
+pandas>=1.5.0
+SQLAlchemy>=2.0.31
+cx_Oracle==8.3.0
+minio>=7.2.0
+faker>=18.0.0
+pyyaml>=6.0.0
+python-dateutil>=2.8.2
+numpy>=1.21.0
+scipy>=1.12.0
+geopy>=2.4.1
+yfinance>=0.2.36
+requests==2.31.0
+qdrant-client==1.7.3
+pyspark==3.5.1
+python-dotenv==1.0.1
+jupyter==1.0.0
+notebook==7.0.7
+
+# From requirements-ide.txt (Specifically for IDE)
+# pyspark==3.5.1 (already listed)
+findspark
+# cx_Oracle (already listed)
+# minio (already listed)
+# python-dotenv (already listed)
+
+# Unique packages consolidated:
+pandas>=1.5.0
+SQLAlchemy>=2.0.31
+cx_Oracle==8.3.0
+minio>=7.2.0
+faker>=18.0.0
+pyyaml>=6.0.0
+python-dateutil>=2.8.2
+numpy>=1.21.0
+scipy>=1.12.0
+geopy>=2.4.1
+yfinance>=0.2.36
+requests==2.31.0
+qdrant-client==1.7.3
+pyspark==3.5.1
+python-dotenv==1.0.1
+jupyter==1.0.0
+notebook==7.0.7
+findspark
+```
+
+**Note:** The `Dockerfile.ide` uses `requirements-ide.txt` for installation, and `Dockerfile.integration` uses `requirements.txt`.
+
+## Setup
+
+1.  Ensure Docker and Docker Compose are installed.
+2.  Place necessary files (e.g., `Dockerfile.integration`, `requirements.txt`) in the root directory.
+3.  Run `docker-compose up -d --build`.
+
+## Accessing Services
+
+*   IDE (code-server): http://localhost:8080
+*   Spark Master UI: http://localhost:8081
+*   Spark Worker UI: http://localhost:8082
+*   Oracle DB: Connect via client on port 1521 (service name: FREE)
+*   Minio Console: http://localhost:9001 (Login: minioadmin/minioadmin)
+*   Langflow: http://localhost:7860
+*   Ollama API: http://localhost:11434
+*   Qdrant API: http://localhost:6333
+*   Integration Service: (No direct UI unless built)
 
 ## 🎓 Free for Education
 This project is completely free for:
@@ -16,6 +99,26 @@ We believe in making enterprise-grade development tools accessible to everyone, 
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+## Project Structure
+
+```
+.
+├── config/
+│   └── docker/
+│       ├── dev/         # Development environment configs
+│       └── prod/        # Production environment configs
+├── docker/
+│   ├── vscode/         # VS Code Server configuration
+│   ├── oracle/         # Oracle DB initialization
+│   ├── minio/          # MinIO configuration
+│   └── ollama/         # Ollama AI models
+├── src/
+│   ├── python/         # Python source code
+│   ├── sql/           # SQL scripts
+│   └── tests/         # Test files
+└── docs/              # Documentation
+```
+
 ## Component Licenses
 
 This project integrates several components, each with its own license:
@@ -28,7 +131,7 @@ See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) for detailed licensing info
 
 ## Overview
 
-This sandbox environment combines powerful data tools into a cohesive development platform, making enterprise tools accessible for educational purposes:
+This sandbox environment combines powerful data tools into a cohesive development platform:
 
 - **Oracle Database**: Enterprise-grade relational database for learning SQL and database management
 - **MinIO**: S3-compatible object storage for understanding modern data lake architectures
@@ -47,30 +150,35 @@ Current Resource Usage (as of April 2024):
 - Memory Usage: 1.04GB / 4.69GB
 - Storage: Efficient container sizes with minimal overhead
 
-## Value Proposition
+## Prerequisites
 
-### For Data Analysts
-- Immediate access to enterprise-grade database tools
-- Built-in data visualization capabilities
-- SQL development environment with modern IDE features
-- Local AI assistance for query optimization and data analysis
-- No complex setup or installation required
+- Docker Desktop installed
+- Minimum 8GB RAM recommended (4GB required)
+- 20GB free disk space
+- Git for version control
 
-### For Data Engineers
-- Complete ETL development environment
-- Version-controlled infrastructure as code
-- Integration testing capabilities
-- S3-compatible storage for data lake development
-- Containerized workflow that mirrors production environments
+## Getting Started
 
-### For SaaS Development
-- Rapid prototyping environment
-- Full stack development capabilities
-- Scalable architecture patterns
-- Built-in security features
-- Easy deployment and testing
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/YavinOwens/Docker_Analytics_Sandbox.git
+   cd Docker_Analytics_Sandbox
+   ```
 
-## Quick Start Connection Details
+2. Development Setup:
+   ```bash
+   cd config/docker/dev
+   cp .env.example .env  # Configure your environment variables
+   docker-compose up -d
+   ```
+
+3. Access the development environment:
+   - VS Code Server: http://localhost:8080
+   - MinIO Console: http://localhost:9001
+   - Oracle Database: localhost:1521
+   - Ollama AI: http://localhost:11434
+
+## Connection Details
 
 ### Oracle Database Connections
 
@@ -104,51 +212,32 @@ Secret Key: minioadmin
 Default Bucket: sql-scripts
 ```
 
-### VS Code Server
-```
-URL: http://localhost:8080
-```
+## Container Management
 
-### Ollama AI Integration
-```
-Internal Endpoint: http://SQL_PY_Sandbox-ollama:11434
-External Endpoint: http://localhost:11434
-```
+### Development Environment
+- VS Code Server with pre-configured extensions
+- Oracle Database XE
+- MinIO Object Storage
+- Ollama AI Integration
+- Persistent volumes for all data
+- Shared network for inter-container communication
 
-## Directory Structure
+### Volume Management
 
-- `scripts/`: Core scripts and utilities
-  - `sql_files/`: SQL database management and query scripts
-  - `python_files/`: Python ETL and data processing scripts
-  - `shell_scripts/`: Automation and maintenance scripts
-- `docs/`: Documentation and guides
-- `config/`: Configuration files for all services
-- `tests/`: Integration and unit tests
+Development volumes:
+- sql_py_sandbox_minio_data
+- sql_py_sandbox_oracle_data
+- sql_py_sandbox_ollama_data
+- sql_py_sandbox_vscode_extensions
+- sql_py_sandbox_vscode_user_data
 
-## Prerequisites
+Production volumes:
+- sql_py_sandbox_minio_data_prod
+- sql_py_sandbox_oracle_data_prod
 
-- Docker Desktop installed
-- Minimum 8GB RAM recommended (4GB required)
-- 20GB free disk space
-- Git for version control
-
-## Getting Started
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/YavinOwens/Docker_Analytics_Sandbox.git
-   cd Docker_Analytics_Sandbox
-   ```
-
-2. Start the environment:
-   ```bash
-   docker-compose up -d
-   ```
-
-3. Access the development environment:
-   - Open VS Code Server: http://localhost:8080
-   - Access MinIO Console: http://localhost:9001
-   - Connect to Oracle Database using the connection details above
+### Network Configuration
+- Development: sql_py_sandbox_network
+- Production: sql_py_sandbox_network_prod
 
 ## Troubleshooting
 
@@ -167,21 +256,17 @@ External Endpoint: http://localhost:11434
 - Check MinIO logs: `docker logs SQL_PY_Sandbox-minio`
 - Monitor disk usage: `docker system df`
 
-### IDE and Development
-- Clear VS Code Server cache if needed
-- Verify extension installations
-- Check Ollama connectivity for AI features
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-Component licenses are detailed in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
-
-Copyright (c) 2025 Yavin Owens
-
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request. Make sure to read the [Contributing Guidelines](CONTRIBUTING.md) first.
+1. Development workflow:
+   - All development happens inside VS Code Server container
+   - Source code is mounted from ./src
+   - Tests run in containerized environment
+
+2. Testing:
+   ```bash
+   docker-compose exec vscode python -m pytest /home/coder/project/src/tests
+   ```
 
 For major changes, please open an issue first to discuss what you would like to change.
 
@@ -198,3 +283,10 @@ For major changes, please open an issue first to discuss what you would like to 
 - Sample datasets for learning
 - Practice exercises and projects
 - Community support for students
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+Component licenses are detailed in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+
+Copyright (c) 2025 Yavin Owens

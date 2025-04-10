@@ -1,0 +1,183 @@
+revenue:
+  components:
+    water_sales:
+      base_percentage: 0.6
+      seasonal_factors:
+        summer: 1.2
+        winter: 0.9
+    wastewater_charges:
+      base_percentage: 0.3
+      seasonal_factors:
+        summer: 1.2
+        winter: 0.9
+    connection_fees:
+      base_percentage: 0.1
+      variation_range: [0.8, 1.2]
+
+costs:
+  components:
+    labor:
+      percentage_range: [0.25, 0.35]
+      categories:
+        - Regular Wages
+        - Overtime
+        - Benefits
+        - Training
+    materials:
+      percentage_range: [0.15, 0.25]
+      categories:
+        - Treatment Chemicals
+        - Equipment Parts
+        - Maintenance Supplies
+        - Office Supplies
+    energy:
+      percentage_range: [0.10, 0.20]
+      categories:
+        - Electricity
+        - Gas
+        - Water Treatment Energy
+        - Facility Energy
+    maintenance:
+      percentage_range: [0.10, 0.15]
+      categories:
+        - Preventive Maintenance
+        - Corrective Maintenance
+        - Emergency Repairs
+        - Equipment Upgrades
+    other:
+      percentage_range: [0.05, 0.10]
+      categories:
+        - Administrative
+        - Marketing
+        - Insurance
+        - Professional Services
+
+budget:
+  base_range: [60000000, 90000000]
+  allocations:
+    operational: 0.6
+    capital: 0.3
+    maintenance: 0.1
+    labor: 0.25
+    materials: 0.15
+    energy: 0.10
+    technology: 0.05
+    safety: 0.05
+    training: 0.03
+    contingency: 0.07
+  status_options:
+    - Approved
+    - Pending
+    - Draft
+
+transactions:
+  daily_range: [5, 15]
+  types:
+    Customer Payment:
+      category: Revenue
+      descriptions:
+        - Monthly water bill payment
+        - Connection fee payment
+        - Late payment penalty
+        - Deposit refund
+    Supplier Payment:
+      category: Operating Expenses
+      descriptions:
+        - Equipment parts purchase
+        - Chemical supplies
+        - Maintenance materials
+        - Office supplies
+    Salary Payment:
+      category: Labor Costs
+      descriptions:
+        - Monthly salary payment
+        - Overtime payment
+        - Bonus payment
+        - Pension contribution
+    Utility Bill:
+      category: Operating Expenses
+      descriptions:
+        - Electricity bill
+        - Gas bill
+        - Internet service
+        - Phone service
+    Maintenance Cost:
+      category: Maintenance
+      descriptions:
+        - Equipment maintenance
+        - Facility repair
+        - Preventive maintenance
+        - Emergency repair
+    Equipment Purchase:
+      category: Capital Expenditure
+      descriptions:
+        - New pump installation
+        - Monitoring system
+        - Safety equipment
+        - Office equipment
+    Service Fee:
+      category: Operating Expenses
+      descriptions:
+        - Consulting service
+        - Training service
+        - Maintenance service
+        - Audit service
+    Interest Payment:
+      category: Financial Expenses
+      descriptions:
+        - Loan interest
+        - Bond interest
+        - Credit line interest
+        - Mortgage interest
+    Tax Payment:
+      category: Taxes
+      descriptions:
+        - Property tax
+        - Income tax
+        - Sales tax
+        - Environmental tax
+    Insurance Premium:
+      category: Insurance
+      descriptions:
+        - Property insurance
+        - Liability insurance
+        - Equipment insurance
+        - Employee insurance
+
+payment_methods:
+  - Bank Transfer
+  - Credit Card
+  - Check
+  - Direct Debit
+  - Cash
+
+transaction_status:
+  - Completed
+  - Pending
+  - Failed
+
+financial_metrics:
+  operating_margin:
+    calculation: "operating_income / total_revenue * 100"
+    range: [15, 35]
+  net_margin:
+    calculation: "net_income / total_revenue * 100"
+    range: [10, 25]
+  revenue_growth:
+    range: [-5, 15]
+  cost_efficiency:
+    range: [0.85, 0.95]
+  water_loss_percentage:
+    range: [15, 25]
+  energy_efficiency:
+    range: [0.75, 0.85]
+
+budget_notes:
+  - Focus on infrastructure modernization
+  - Emphasis on energy efficiency
+  - Investment in digital transformation
+  - Safety and compliance priorities
+  - Customer service improvements
+  - Environmental initiatives
+  - Staff development programs
+  - Technology upgrades 

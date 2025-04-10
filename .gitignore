@@ -79,3 +79,39 @@ transformed_data/
 test.csv
 check_data.sql
 create_financial_tables.sql
+
+# Oracle files
+*.zip
+instantclient-*
+instantclient_*
+oracle-xe-*
+oracle-instantclient-*
+
+# Large binary files
+*.jar
+*.war
+*.ear
+*.tar
+*.gz
+*.tgz
+*.zip
+*.7z
+*.rar
+*.iso
+*.dmg
+*.img
+
+# Spark
+spark-*
+hadoop-*
+
+# MinIO
+minio
+minio.exe
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+*.dump
+*.backup

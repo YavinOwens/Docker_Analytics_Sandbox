@@ -1,0 +1,316 @@
+departments:
+  Operations:
+    - Operator
+    - Technician
+    - Engineer
+    - Supervisor
+    - Manager
+    - Director
+  Maintenance:
+    - Technician
+    - Engineer
+    - Supervisor
+    - Manager
+  Safety:
+    - Safety Officer
+    - Safety Manager
+    - Director
+  HR:
+    - HR Specialist
+    - HR Manager
+    - Director
+  Logistics:
+    - Logistics Coordinator
+    - Logistics Manager
+    - Director
+  Training:
+    - Training Specialist
+    - Training Manager
+    - Director
+  Quality Control:
+    - Quality Control Specialist
+    - Quality Control Manager
+    - Director
+
+locations:
+  facilities:
+    water_utilities:
+      - name: "Central Water Treatment Plant"
+        lat: 40.7128
+        lon: -74.0060
+        areas:
+          - "Treatment Area"
+          - "Control Room"
+          - "Laboratory"
+          - "Maintenance Bay"
+          - "Administration"
+      - name: "North Distribution Center"
+        lat: 40.7829
+        lon: -73.9654
+        areas:
+          - "Distribution Control"
+          - "Storage Tanks"
+          - "Maintenance Area"
+          - "Office Space"
+      - name: "South Water Treatment Facility"
+        lat: 40.6782
+        lon: -73.9442
+        areas:
+          - "Treatment Area"
+          - "Quality Control Lab"
+          - "Maintenance Shop"
+          - "Administrative Office"
+      - name: "East Pumping Station"
+        lat: 40.7282
+        lon: -73.7949
+        areas:
+          - "Pump Room"
+          - "Control Center"
+          - "Maintenance Area"
+          - "Office Space"
+      - name: "West Distribution Hub"
+        lat: 40.7614
+        lon: -74.0016
+        areas:
+          - "Distribution Control"
+          - "Storage Area"
+          - "Maintenance Bay"
+          - "Administration"
+
+compliance_standards:
+  - "OSHA 1910"
+  - "EPA Water Quality Standards"
+  - "AWWA Standards"
+  - "ISO 9001"
+  - "ISO 14001"
+  - "OHSAS 18001"
+
+safety_requirements:
+  permits:
+    - "Confined Space Entry"
+    - "Hot Work"
+    - "Working at Heights"
+    - "Excavation"
+    - "Lockout/Tagout"
+    - "Chemical Handling"
+
+work_order_status:
+  - "Open"
+  - "In Progress"
+  - "On Hold"
+  - "Completed"
+  - "Cancelled"
+  - "Closed"
+
+maintenance_types:
+  - "Preventive"
+  - "Corrective"
+  - "Emergency"
+  - "Predictive"
+  - "Modification"
+
+employee_profiles:
+  departments:
+    - Operations
+    - Maintenance
+    - Engineering
+    - Customer Service
+    - Administration
+    - Safety
+    - Quality Control
+    - Research & Development
+    - Training
+    - IT
+
+  roles:
+    Operations:
+      - Plant Operator
+      - Field Technician
+      - Process Engineer
+      - Shift Supervisor
+      - Operations Manager
+    Maintenance:
+      - Maintenance Technician
+      - Equipment Specialist
+      - Maintenance Supervisor
+      - Reliability Engineer
+      - Maintenance Manager
+    Engineering:
+      - Process Engineer
+      - Design Engineer
+      - Project Engineer
+      - Senior Engineer
+      - Engineering Manager
+    Customer Service:
+      - Customer Representative
+      - Service Coordinator
+      - Billing Specialist
+      - Customer Service Manager
+      - Support Team Lead
+    Administration:
+      - Administrative Assistant
+      - HR Specialist
+      - Finance Analyst
+      - Office Manager
+      - Executive Assistant
+    Safety:
+      - Safety Officer
+      - Safety Coordinator
+      - Safety Manager
+      - Compliance Specialist
+      - Risk Manager
+    Quality Control:
+      - Quality Technician
+      - Quality Engineer
+      - Quality Manager
+      - Lab Analyst
+      - Quality Assurance Lead
+    Research & Development:
+      - Research Scientist
+      - Development Engineer
+      - Innovation Specialist
+      - R&D Manager
+      - Technical Lead
+    Training:
+      - Training Coordinator
+      - Safety Trainer
+      - Technical Trainer
+      - Training Manager
+      - Learning Specialist
+    IT:
+      - IT Support
+      - Systems Administrator
+      - Network Engineer
+      - IT Manager
+      - Data Analyst
+
+  education_levels:
+    - High School Diploma
+    - Associate's Degree
+    - Bachelor's Degree
+    - Master's Degree
+    - PhD
+    - Technical Certification
+
+  experience_ranges:
+    - 0-2 years
+    - 3-5 years
+    - 6-10 years
+    - 11-15 years
+    - 16-20 years
+    - 20+ years
+
+  salary_ranges:
+    entry_level:
+      range: [30000, 45000]
+      currency: "USD"
+    mid_level:
+      range: [45000, 75000]
+      currency: "USD"
+    senior_level:
+      range: [75000, 120000]
+      currency: "USD"
+    management:
+      range: [120000, 200000]
+      currency: "USD"
+    executive:
+      range: [200000, 500000]
+      currency: "USD"
+
+  performance_metrics:
+    rating_scale:
+      - Outstanding
+      - Exceeds Expectations
+      - Meets Expectations
+      - Needs Improvement
+      - Unsatisfactory
+    weight_factors:
+      productivity: 0.3
+      quality: 0.2
+      teamwork: 0.15
+      initiative: 0.15
+      attendance: 0.2
+
+  training_programs:
+    types:
+      - Safety Training
+      - Technical Skills
+      - Leadership Development
+      - Compliance Training
+      - Professional Development
+    completion_status:
+      - Completed
+      - In Progress
+      - Scheduled
+      - Not Started
+    frequency:
+      - Daily
+      - Weekly
+      - Monthly
+      - Quarterly
+      - Annually
+
+  attendance_records:
+    status_types:
+      - Present
+      - Absent
+      - Late
+      - Early Departure
+      - On Leave
+    leave_types:
+      - Vacation
+      - Sick Leave
+      - Personal Leave
+      - Family Leave
+      - Bereavement
+      - Jury Duty
+    patterns:
+      regular:
+        probability: 0.85
+      occasional_late:
+        probability: 0.10
+      frequent_absent:
+        probability: 0.05
+
+  certifications:
+    types:
+      - Safety Certifications
+      - Technical Certifications
+      - Professional Licenses
+      - Industry Standards
+      - Quality Management
+    validity_periods:
+      - 1 year
+      - 2 years
+      - 3 years
+      - 5 years
+      - Permanent
+
+  benefits:
+    health_insurance:
+      coverage_levels:
+        - Individual
+        - Family
+        - Employee + Spouse
+        - Employee + Children
+    retirement:
+      contribution_ranges:
+        employee: [3, 15]
+        employer: [3, 10]
+    paid_time_off:
+      ranges:
+        entry_level: [10, 15]
+        mid_level: [15, 20]
+        senior_level: [20, 25]
+        management: [25, 30]
+    additional_benefits:
+      - Dental Insurance
+      - Vision Insurance
+      - Life Insurance
+      - Disability Insurance
+      - Wellness Programs
+      - Professional Development
+      - Employee Assistance Program
+      - Flexible Spending Account
+      - Commuter Benefits
+      - Gym Membership 

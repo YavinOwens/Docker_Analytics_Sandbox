@@ -1,0 +1,8 @@
+pyspark==3.5.1
+findspark
+# Oracle database connectors - try multiple in case one fails
+cx_Oracle
+oracledb
+minio
+python-dotenv
+# Add other necessary Python packages for the IDE here 

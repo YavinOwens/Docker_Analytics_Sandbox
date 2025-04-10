@@ -1,0 +1,164 @@
+sectors:
+  water_utilities:
+    asset_types:
+      treatment:
+        - name: Chemical Dosing Pump
+          maintenance_interval: 2160  # 3 months in hours
+          standards: ["AWWA C670", "ISO 9905"]
+          failure_modes: ["Seal Failure", "Control Malfunction", "Calibration Drift"]
+        - name: Filtration System
+          maintenance_interval: 720  # 1 month in hours
+          standards: ["AWWA B100", "NSF/ANSI 61"]
+          failure_modes: ["Media Breakthrough", "Pressure Loss", "Valve Failure"]
+        - name: UV Disinfection System
+          maintenance_interval: 8760  # 1 year in hours
+          standards: ["USEPA UVDGM", "NSF/ANSI 55"]
+          failure_modes: ["Lamp Failure", "Sensor Drift", "Sleeve Fouling"]
+      distribution:
+        - name: Centrifugal Pump
+          maintenance_interval: 4320  # 6 months in hours
+          standards: ["ANSI/HI 9.6.8", "API 610"]
+          failure_modes: ["Bearing Failure", "Seal Leakage", "Impeller Wear"]
+        - name: Control Valve
+          maintenance_interval: 8760  # 1 year in hours
+          standards: ["AWWA C504", "ISA 75.01"]
+          failure_modes: ["Actuator Failure", "Seat Wear", "Stem Binding"]
+        - name: SCADA System
+          maintenance_interval: 2160  # 3 months in hours
+          standards: ["IEC 62443", "NIST SP 800-82"]
+          failure_modes: ["Communication Loss", "Hardware Failure", "Software Bug"]
+
+  oil_and_gas:
+    asset_types:
+      upstream:
+        - name: Drilling Rig
+          maintenance_interval: 720  # 1 month in hours
+          standards: ["API RP 7L", "API Spec 4F"]
+          failure_modes: ["Power System Failure", "Drawworks Failure", "Control System Error"]
+        - name: Wellhead
+          maintenance_interval: 4320  # 6 months in hours
+          standards: ["API 6A", "API 14C"]
+          failure_modes: ["Seal Failure", "Valve Malfunction", "Pressure Loss"]
+        - name: Compressor
+          maintenance_interval: 2160  # 3 months in hours
+          standards: ["API 618", "ISO 13631"]
+          failure_modes: ["Valve Failure", "Bearing Wear", "Lubrication Issues"]
+      midstream:
+        - name: Pipeline
+          maintenance_interval: 8760  # 1 year in hours
+          standards: ["API 1160", "ASME B31.4"]
+          failure_modes: ["Corrosion", "Crack Formation", "Joint Failure"]
+        - name: Storage Tank
+          maintenance_interval: 17520  # 2 years in hours
+          standards: ["API 650", "API 653"]
+          failure_modes: ["Floor Corrosion", "Shell Deformation", "Roof Damage"]
+        - name: Metering System
+          maintenance_interval: 4320  # 6 months in hours
+          standards: ["API MPMS", "ISO 10012"]
+          failure_modes: ["Calibration Drift", "Sensor Failure", "Flow Computer Error"]
+
+  sustainable_energy:
+    asset_types:
+      wind:
+        - name: Wind Turbine
+          maintenance_interval: 4320  # 6 months in hours
+          standards: ["IEC 61400-1", "ISO 81400"]
+          failure_modes: ["Gearbox Failure", "Blade Damage", "Generator Fault"]
+        - name: Gearbox
+          maintenance_interval: 8760  # 1 year in hours
+          standards: ["ISO 81400-4", "AGMA 6006"]
+          failure_modes: ["Bearing Failure", "Gear Wear", "Lubrication Issues"]
+        - name: Pitch System
+          maintenance_interval: 2160  # 3 months in hours
+          standards: ["GL 2010", "IEC 61400-22"]
+          failure_modes: ["Motor Failure", "Controller Error", "Mechanical Binding"]
+      solar:
+        - name: Solar Panel
+          maintenance_interval: 4320  # 6 months in hours
+          standards: ["IEC 61215", "IEC 61730"]
+          failure_modes: ["Cell Degradation", "Connection Failure", "Glass Damage"]
+        - name: Inverter
+          maintenance_interval: 2160  # 3 months in hours
+          standards: ["IEC 62109", "UL 1741"]
+          failure_modes: ["Component Failure", "Overheating", "Control Error"]
+        - name: Tracking System
+          maintenance_interval: 1440  # 2 months in hours
+          standards: ["ASCE 7-16", "UL 3703"]
+          failure_modes: ["Motor Failure", "Alignment Error", "Structural Issue"]
+
+maintenance_types:
+  - Preventive
+  - Corrective
+  - Emergency
+  - Predictive
+  - Modification
+
+priority_levels:
+  1: Critical - Immediate Action Required
+  2: High - Action Required Within 24 Hours
+  3: Medium - Action Required Within 1 Week
+  4: Low - Action Required Within 1 Month
+  5: Minimal - Schedule During Next Planned Maintenance
+
+work_order_status:
+  - Open
+  - Assigned
+  - In Progress
+  - On Hold
+  - Completed
+  - Cancelled
+
+safety_requirements:
+  ppe:
+    - Safety Glasses
+    - Hard Hat
+    - Steel-Toed Boots
+    - High-Visibility Vest
+    - Hearing Protection
+    - Respiratory Protection
+  permits:
+    - Hot Work
+    - Confined Space Entry
+    - Lock Out/Tag Out
+    - Working at Heights
+    - Excavation
+    - Chemical Handling
+
+compliance_standards:
+  - ISO 55000
+  - ISO 14224
+  - API 570
+  - ASME B31.1
+  - AWWA Standards
+  - IEC 61400
+  - IEC 61215
+
+locations:
+  facilities:
+    water_utilities:
+      - name: "North Water Treatment Plant"
+        lat: 40.7128
+        lon: -74.0060
+        areas: ["Intake", "Chemical Treatment", "Filtration", "Distribution"]
+      - name: "South Water Treatment Plant"
+        lat: 34.0522
+        lon: -118.2437
+        areas: ["Intake", "Chemical Treatment", "Filtration", "Distribution"]
+    oil_and_gas:
+      - name: "Eagle Ford Production Facility"
+        lat: 28.7041
+        lon: -97.5644
+        areas: ["Wellhead", "Separation", "Storage", "Compression"]
+      - name: "Permian Basin Processing Plant"
+        lat: 31.7619
+        lon: -102.3319
+        areas: ["Receiving", "Processing", "Storage", "Distribution"]
+    sustainable_energy:
+      - name: "Mojave Solar Farm"
+        lat: 35.0128
+        lon: -117.5656
+        areas: ["Solar Field", "Inverter Station", "Substation", "Control Room"]
+      - name: "Texas Wind Farm"
+        lat: 32.7767
+        lon: -100.7654
+        areas: ["Turbine Field", "Substation", "Maintenance Shop", "Control Center"] 

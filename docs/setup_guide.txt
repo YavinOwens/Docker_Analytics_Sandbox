@@ -1,0 +1,108 @@
+# SQL Development Environment Setup Guide
+
+## Environment Overview
+This environment provides a comprehensive SQL development workspace with the following components:
+- VS Code-based IDE
+- Oracle Database
+- Apache Spark
+- MinIO Object Storage
+- Langflow AI
+- Ollama LLM
+- Qdrant Vector Database
+
+## File Structure
+```
+.
+├── docker-compose.yml          # Main orchestration file
+├── Dockerfile.ide              # IDE container configuration
+├── scripts/
+│   ├── start.sh               # Main startup script
+│   └── start_spark_ui.sh      # Spark UI startup script
+├── workspace/                  # Development workspace
+│   ├── src/python/            # Python scripts
+│   ├── sql_scripts/           # SQL scripts
+│   ├── data/                  # Data files
+│   └── .vscode/               # VS Code settings
+└── docs/
+    └── setup_guide.txt        # This documentation
+```
+
+## Service URLs and Ports
+- IDE: http://localhost:8080
+- Spark UI: http://localhost:4040
+- Spark Master: http://localhost:8081
+- Spark Worker: http://localhost:8082
+- MinIO: http://localhost:9000
+- MinIO Console: http://localhost:9001
+- Langflow: http://localhost:7860
+- Ollama: http://localhost:11434
+- Qdrant: http://localhost:6333
+- Oracle: localhost:1521
+
+## Environment Variables
+### Oracle
+- ORACLE_PASSWORD=oracle
+- ORACLE_DATABASE=FREE
+- ORACLE_HOME=/opt/oracle/instantclient_21.9
+- LD_LIBRARY_PATH=/opt/oracle/instantclient_21.9
+- TNS_ADMIN=/opt/oracle/instantclient_21.9/network/admin
+
+### Spark
+- SPARK_MASTER_URL=spark://spark-master:7077
+- SPARK_MODE=master/worker
+- SPARK_MASTER_HOST=spark-master
+- SPARK_WORKER_WEBUI_PORT=8081
+
+### MinIO
+- MINIO_ROOT_USER=minioadmin
+- MINIO_ROOT_PASSWORD=minioadmin
+
+## Starting the Environment
+1. Ensure Docker and Docker Compose are installed
+2. Run the startup script:
+   ```bash
+   ./scripts/start.sh
+   ```
+3. Wait for all services to initialize
+4. Access services through their respective URLs
+
+## Stopping the Environment
+```bash
+docker-compose down
+```
+
+## Troubleshooting
+1. Check container logs:
+   ```bash
+   docker-compose logs [service_name]
+   ```
+2. Verify container status:
+   ```bash
+   docker-compose ps
+   ```
+3. Check Spark UI logs:
+   ```bash
+   docker exec sql-ide cat /tmp/spark_ui.log
+   ```
+
+## Development Workflow
+1. SQL Development:
+   - Use VS Code SQL Client extension
+   - Store scripts in workspace/sql_scripts
+   - Connect to Oracle using pre-configured settings
+
+2. Python/Spark Development:
+   - Place Python scripts in workspace/src/python
+   - Use PySpark for data processing
+   - Monitor jobs through Spark UI
+
+3. Data Storage:
+   - Use MinIO for object storage
+   - Access through http://localhost:9000
+   - Default credentials: minioadmin/minioadmin
+
+## Notes
+- All services are configured for development use
+- For production, update credentials and security settings
+- Persistent data is stored in Docker volumes
+- Network isolation is maintained through Docker networks 

@@ -1,0 +1,11 @@
+Connection Type: Oracle
+Database host name: SQL_PY_Sandbox-oracle
+Port number: 1521
+Service name: FREE
+Connection string: SQL_PY_Sandbox-oracle:1521/FREE
+
+host: SQL_PY_Sandbox-oracle
+
+User name: system
+Password: oracle
+Connection name: SQL_PY_Sandbox

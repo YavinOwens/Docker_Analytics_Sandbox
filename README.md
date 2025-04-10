@@ -1,6 +1,5 @@
 # Docker Analytics Sandbox
 
-This project sets up a Dockerized environment for data analytics, engineering, and AI development.
 
 ## Services
 
@@ -212,8 +211,6 @@ Secret Key: minioadmin
 Default Bucket: sql-scripts
 ```
 
-## Container Management
-
 ### Development Environment
 - VS Code Server with pre-configured extensions
 - Oracle Database XE
@@ -222,7 +219,7 @@ Default Bucket: sql-scripts
 - Persistent volumes for all data
 - Shared network for inter-container communication
 
-### Volume Management
+
 
 Development volumes:
 - sql_py_sandbox_minio_data
@@ -231,9 +228,6 @@ Development volumes:
 - sql_py_sandbox_vscode_extensions
 - sql_py_sandbox_vscode_user_data
 
-Production volumes:
-- sql_py_sandbox_minio_data_prod
-- sql_py_sandbox_oracle_data_prod
 
 ### Network Configuration
 - Development: sql_py_sandbox_network
@@ -241,52 +235,8 @@ Production volumes:
 
 ## Troubleshooting
 
-### Container Health Checks
-- View container status: `docker ps`
-- Check container logs: `docker logs <container-name>`
-- Monitor resource usage: Docker Desktop Dashboard
 
-### Database Connectivity
-- Verify Oracle container health: `docker logs SQL_PY_Sandbox-oracle`
-- Test connection: `sqlplus system/oracle@//localhost:1521/FREE`
-- Check listener status inside container: `lsnrctl status`
-
-### Storage Issues
-- Verify MinIO accessibility: `curl http://localhost:9000`
-- Check MinIO logs: `docker logs SQL_PY_Sandbox-minio`
-- Monitor disk usage: `docker system df`
-
-## Contributing
-
-1. Development workflow:
-   - All development happens inside VS Code Server container
-   - Source code is mounted from ./src
-   - Tests run in containerized environment
-
-2. Testing:
    ```bash
    docker-compose exec vscode python -m pytest /home/coder/project/src/tests
    ```
 
-For major changes, please open an issue first to discuss what you would like to change.
-
-## Support for Students
-
-### Getting Started Guide for Students
-1. Install Docker Desktop (free for educational use)
-2. Clone this repository
-3. Follow the setup instructions above
-4. Join our community discussions for help
-
-### Educational Resources
-- Check our [Wiki](../../wiki) for tutorials
-- Sample datasets for learning
-- Practice exercises and projects
-- Community support for students
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-Component licenses are detailed in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
-
-Copyright (c) 2025 Yavin Owens

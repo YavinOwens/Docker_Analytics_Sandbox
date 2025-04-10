@@ -153,3 +153,4 @@ docker/oracle-ide/oracle-data/**/spfile*
 docker/oracle-ide/oracle-data/**/listener*
 docker/oracle-ide/oracle-data/**/sqlnet*
 docker/oracle-ide/oracle-data/**/tnsnames*
+

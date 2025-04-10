@@ -1,0 +1,82 @@
+# Base on official code-server image
+FROM codercom/code-server:latest
+
+USER root
+
+# Install system dependencies including Java for PySpark and Oracle Client prereqs
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    python3 \
+    python3-pip \
+    python3-venv \
+    libaio1 \
+    wget \
+    unzip \
+    libc6 \
+    default-jdk \
+    # Add build tools for cx_Oracle
+    gcc \
+    g++ \
+    make \
+    python3-dev \
+    # Add other system packages if needed
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Oracle Instant Client
+ARG ORACLE_CLIENT_VERSION="21.9"
+# Using x64 version as code-server base image is likely x64
+ARG ORACLE_CLIENT_URL="https://download.oracle.com/otn_software/linux/instantclient/219000/instantclient-basic-linux.x64-21.9.0.0.0dbru.zip"
+
+RUN mkdir -p /opt/oracle && cd /opt/oracle && \
+    wget -O instantclient.zip "${ORACLE_CLIENT_URL}" && \
+    unzip instantclient.zip && \
+    rm instantclient.zip && \
+    # Use the actual extracted directory name
+    INSTANTCLIENT_DIR=$(find . -maxdepth 1 -type d -name 'instantclient_*' -print -quit) && \
+    if [ -n "$INSTANTCLIENT_DIR" ]; then \
+    # Ensure standard name for ENV vars
+    mv "$INSTANTCLIENT_DIR" "instantclient_${ORACLE_CLIENT_VERSION}" && \
+    cd "instantclient_${ORACLE_CLIENT_VERSION}" && \
+    # Create necessary symlinks if they don't exist (might be needed by cx_Oracle)
+    if [ ! -f libclntsh.so ]; then ln -s libclntsh.so.* libclntsh.so; fi && \
+    if [ ! -f libocci.so ]; then ln -s libocci.so.* libocci.so; fi; \
+    else \
+    echo "Instant Client directory not found as expected." && exit 1; \
+    fi && \
+    # Update library path config
+    echo /opt/oracle/instantclient_${ORACLE_CLIENT_VERSION} > /etc/ld.so.conf.d/oracle-instantclient.conf && \
+    ldconfig
+
+# Set environment variables for Oracle and Java
+ENV ORACLE_HOME=/opt/oracle/instantclient_${ORACLE_CLIENT_VERSION}
+ENV LD_LIBRARY_PATH=${ORACLE_HOME}:${LD_LIBRARY_PATH}
+ENV TNS_ADMIN=${ORACLE_HOME}/network/admin
+ENV PATH=${ORACLE_HOME}:${PATH}
+# Set Java home for default-jdk
+ENV JAVA_HOME=/usr/lib/jvm/default-java
+ENV PATH=${JAVA_HOME}/bin:${PATH}
+
+# Create Python virtual environment
+ENV VENV_PATH=/opt/venv
+RUN python3 -m venv ${VENV_PATH} && \
+    chown -R coder:coder ${VENV_PATH}
+ENV PATH="${VENV_PATH}/bin:${PATH}"
+
+# Install Python packages
+COPY requirements-ide.txt /tmp/requirements-ide.txt
+RUN pip install --no-cache-dir -r /tmp/requirements-ide.txt && \
+    rm /tmp/requirements-ide.txt
+
+# Create workspace directory and set permissions
+RUN mkdir -p /home/coder/project /home/coder/.local /home/coder/.config && \
+    chown -R coder:coder /home/coder
+
+USER coder
+WORKDIR /home/coder/project
+
+# Expose code-server port
+EXPOSE 8080
+
+# Start code-server (authentication disabled for sandbox)
+CMD ["code-server", "--bind-addr", "0.0.0.0:8080", "--auth", "none", "."] 

@@ -1,0 +1,267 @@
+equipment:
+  types:
+    pumps:
+      categories:
+        - Centrifugal Pumps
+        - Submersible Pumps
+        - Booster Pumps
+        - Chemical Feed Pumps
+        - Sludge Pumps
+      parameters:
+        flow_rate:
+          range: [100, 1000]
+          unit: "GPM"
+        pressure:
+          range: [40, 200]
+          unit: "PSI"
+        efficiency:
+          range: [70, 95]
+          unit: "%"
+        power_consumption:
+          range: [10, 100]
+          unit: "kW"
+      maintenance_schedule:
+        frequency: "monthly"
+        tasks:
+          - Visual Inspection
+          - Lubrication
+          - Alignment Check
+          - Vibration Analysis
+          - Performance Testing
+
+    filters:
+      categories:
+        - Sand Filters
+        - Membrane Filters
+        - Cartridge Filters
+        - Bag Filters
+        - Activated Carbon Filters
+      parameters:
+        flow_rate:
+          range: [50, 500]
+          unit: "GPM"
+        pressure_drop:
+          range: [2, 15]
+          unit: "PSI"
+        efficiency:
+          range: [85, 99]
+          unit: "%"
+        service_life:
+          range: [6, 24]
+          unit: "months"
+      maintenance_schedule:
+        frequency: "weekly"
+        tasks:
+          - Backwashing
+          - Media Replacement
+          - Pressure Check
+          - Flow Rate Measurement
+          - Visual Inspection
+
+    tanks:
+      categories:
+        - Storage Tanks
+        - Treatment Tanks
+        - Chemical Tanks
+        - Clarifiers
+        - Reactors
+      parameters:
+        capacity:
+          range: [1000, 100000]
+          unit: "gallons"
+        level:
+          range: [20, 100]
+          unit: "%"
+        temperature:
+          range: [15, 35]
+          unit: "°C"
+        pressure:
+          range: [0, 50]
+          unit: "PSI"
+      maintenance_schedule:
+        frequency: "quarterly"
+        tasks:
+          - Level Calibration
+          - Leak Detection
+          - Coating Inspection
+          - Structural Inspection
+          - Cleaning
+
+    valves:
+      categories:
+        - Gate Valves
+        - Butterfly Valves
+        - Check Valves
+        - Control Valves
+        - Relief Valves
+      parameters:
+        flow_rate:
+          range: [10, 500]
+          unit: "GPM"
+        pressure:
+          range: [0, 150]
+          unit: "PSI"
+        position:
+          range: [0, 100]
+          unit: "%"
+        leakage_rate:
+          range: [0, 0.1]
+          unit: "%"
+      maintenance_schedule:
+        frequency: "monthly"
+        tasks:
+          - Operation Check
+          - Leakage Test
+          - Position Calibration
+          - Actuator Inspection
+          - Seal Inspection
+
+    sensors:
+      categories:
+        - Flow Sensors
+        - Pressure Sensors
+        - Level Sensors
+        - Quality Sensors
+        - Temperature Sensors
+      parameters:
+        accuracy:
+          range: [95, 99.9]
+          unit: "%"
+        response_time:
+          range: [0.1, 5]
+          unit: "seconds"
+        drift:
+          range: [0, 0.5]
+          unit: "%/year"
+        calibration_due:
+          range: [1, 12]
+          unit: "months"
+      maintenance_schedule:
+        frequency: "monthly"
+        tasks:
+          - Calibration
+          - Cleaning
+          - Response Time Check
+          - Accuracy Verification
+          - Connection Check
+
+  maintenance_records:
+    status_types:
+      - Scheduled
+      - Completed
+      - Overdue
+      - Cancelled
+      - In Progress
+    priority_levels:
+      - Critical
+      - High
+      - Medium
+      - Low
+    completion_codes:
+      - Success
+      - Partial
+      - Failed
+      - Deferred
+      - Not Applicable
+
+  failure_modes:
+    mechanical:
+      - Wear
+      - Fatigue
+      - Corrosion
+      - Erosion
+      - Misalignment
+    electrical:
+      - Short Circuit
+      - Open Circuit
+      - Ground Fault
+      - Overload
+      - Voltage Fluctuation
+    operational:
+      - Overpressure
+      - Overheating
+      - Cavitation
+      - Water Hammer
+      - Blockage
+
+  spare_parts:
+    categories:
+      - Mechanical Parts
+      - Electrical Parts
+      - Instrumentation
+      - Consumables
+      - Tools
+    inventory_levels:
+      min:
+        range: [1, 5]
+      max:
+        range: [10, 50]
+    reorder_points:
+      range: [2, 10]
+    lead_times:
+      range: [1, 30]
+      unit: "days"
+
+  work_orders:
+    types:
+      - Preventive Maintenance
+      - Corrective Maintenance
+      - Emergency Repair
+      - Installation
+      - Inspection
+    status:
+      - Created
+      - Assigned
+      - In Progress
+      - On Hold
+      - Completed
+      - Cancelled
+    priority:
+      - Critical
+      - High
+      - Medium
+      - Low
+    completion_time:
+      range: [1, 48]
+      unit: "hours"
+
+  safety_procedures:
+    types:
+      - Lockout/Tagout
+      - Confined Space Entry
+      - Hot Work
+      - Working at Heights
+      - Chemical Handling
+    requirements:
+      - PPE
+      - Training
+      - Permits
+      - Supervision
+      - Documentation
+    frequency:
+      - Daily
+      - Weekly
+      - Monthly
+      - Quarterly
+      - Annually
+
+  environmental_compliance:
+    parameters:
+      air_emissions:
+        range: [0, 100]
+        unit: "ppm"
+      water_discharge:
+        range: [0, 50]
+        unit: "mg/L"
+      noise_levels:
+        range: [60, 90]
+        unit: "dB"
+      waste_generation:
+        range: [0, 1000]
+        unit: "kg/month"
+    monitoring_frequency:
+      - Continuous
+      - Daily
+      - Weekly
+      - Monthly
+      - Quarterly 

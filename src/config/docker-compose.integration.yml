@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  qdrant:
+    container_name: sql_stuff-qdrant-1
+    image: qdrant/qdrant:latest
+    ports:
+      - "6333:6333"  # REST API
+      - "6334:6334"  # GRPC API
+    volumes:
+      - qdrant_storage:/qdrant/storage
+    environment:
+      - QDRANT_ALLOW_CORS=true
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:6333/healthz"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - app_network
+
+  integration:
+    container_name: sql_stuff-integration-1
+    build:
+      context: .
+      dockerfile: Dockerfile.integration
+    volumes:
+      - .:/app
+    depends_on:
+      - qdrant
+    networks:
+      - app_network
+    environment:
+      - ORACLE_USER=app_user
+      - ORACLE_PASSWORD=app_password
+      - ORACLE_HOST=sql_stuff-oracle-1
+      - ORACLE_PORT=1521
+      - ORACLE_SERVICE=FREEPDB1
+
+volumes:
+  qdrant_storage:
+    driver: local
+
+networks:
+  app_network:
+    external: true

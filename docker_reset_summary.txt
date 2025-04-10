@@ -1,0 +1,36 @@
+Docker Sandbox Reset Summary
+=============================
+
+Desired Services:
+-----------------
+*   Oracle IDE (VS Code based environment)
+*   Spark Cluster (Separate Master and Worker)
+*   Oracle Database (Oracle Free recommended for ARM64)
+*   Minio (S3-compatible object storage)
+*   Langflow
+
+Key Decisions/Findings:
+-------------------------
+*   Use official `apache/spark` images for Spark Master/Worker (e.g., `apache/spark:3.5.1`).
+*   Use official `gvenzl/oracle-free:latest` for Oracle DB (works well on ARM64).
+*   Use official `minio/minio` for Minio.
+*   Use official `langflowai/langflow` for Langflow.
+*   All services should be defined within a single `docker-compose.yml` file.
+*   Use named volumes for data persistence (e.g., `oracle_data`, `minio_data`, `langflow_data`, `vscode_data`).
+*   Use a shared Docker network (e.g., `analytics_network`) for communication.
+*   The IDE environment (`oracle-ide`) should have client libraries (`pyspark`) installed to connect to the separate Spark cluster.
+
+Volumes Kept:
+-------------
+*   vscode_extensions
+*   vscode_user_data
+*   oracle_data
+*   minio_data
+*   langflow_data
+(Note: Actual volume names might have a prefix like `oracle-ide_` depending on how they were initially created by compose).
+
+Next Steps:
+-----------
+*   Define the specific requirements for the Oracle IDE container (packages, environment variables, etc.).
+*   Create a new `docker-compose.yml` incorporating all services based on official images.
+*   Create a new `Dockerfile` for the Oracle IDE service. 

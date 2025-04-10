@@ -1,75 +1,193 @@
 version: '3.8'
 
 services:
-  vscode:
+  ide:
     build:
       context: .
-      dockerfile: Dockerfile.vscode
-    container_name: SQL_PY_Sandbox-vscode
+      dockerfile: Dockerfile.ide
+    container_name: sql-ide
     ports:
       - "8080:8080"
     volumes:
       - ./workspace:/home/coder/project
+      - ./src:/home/coder/project/src
+    environment:
+      - ORACLE_HOME=/opt/oracle/instantclient_21.9
+      - LD_LIBRARY_PATH=/opt/oracle/instantclient_21.9
+      - TNS_ADMIN=/opt/oracle/instantclient_21.9/network/admin
+      - JAVA_HOME=/usr/lib/jvm/default-java
     networks:
-      - sql_py_network
+      - sql-network
     restart: unless-stopped
 
-  minio:
-    image: minio/minio
-    container_name: SQL_PY_Sandbox-minio
-    ports:
-      - "9000:9000"
-      - "9001:9001"
+  spark-master:
+    image: apache/spark:3.5.1
+    container_name: spark-master
     environment:
-      - MINIO_ROOT_USER=minioadmin
-      - MINIO_ROOT_PASSWORD=minioadmin
-    volumes:
-      - minio_data:/data
-    command: server /data --console-address ":9001"
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
-      interval: 30s
-      timeout: 20s
-      retries: 3
+      - SPARK_MODE=master
+      - SPARK_MASTER_HOST=spark-master
+      - SPARK_RPC_AUTHENTICATION_ENABLED=no
+      - SPARK_RPC_ENCRYPTION_ENABLED=no
+      - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
+      - SPARK_SSL_ENABLED=no
+    ports:
+      - "7077:7077" # Spark master internal port
+      - "8081:8080" # Spark master Web UI
     networks:
-      - sql_py_network
+      - analytics_network
+    restart: unless-stopped
+
+  spark-worker:
+    image: apache/spark:3.5.1
+    container_name: spark-worker
+    environment:
+      - SPARK_MODE=worker
+      - SPARK_MASTER_URL=spark://spark-master:7077
+      - SPARK_WORKER_WEBUI_PORT=8081 # Worker UI internal port
+      - SPARK_RPC_AUTHENTICATION_ENABLED=no
+      - SPARK_RPC_ENCRYPTION_ENABLED=no
+      - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
+      - SPARK_SSL_ENABLED=no
+      # Optional: Control worker resources
+      # - SPARK_WORKER_CORES=1
+      # - SPARK_WORKER_MEMORY=1g
+    ports:
+      - "8082:8081" # Map worker Web UI to host port 8082
+    networks:
+      - analytics_network
+    depends_on:
+      - spark-master
     restart: unless-stopped
 
   oracle:
     image: gvenzl/oracle-free:latest
-    container_name: SQL_PY_Sandbox-oracle
+    container_name: oracle
     ports:
       - "1521:1521"
     environment:
-      - ORACLE_PASSWORD=oracle
+      - ORACLE_PASSWORD=oracle # Use .env for production
       - ORACLE_DATABASE=FREE
     volumes:
       - oracle_data:/opt/oracle/oradata
     healthcheck:
-      test: ["CMD", "healthcheck.sh"]
+      test: [ "CMD", "healthcheck.sh" ]
       interval: 30s
       timeout: 20s
       retries: 3
     networks:
-      - sql_py_network
+      - analytics_network
+    restart: unless-stopped
+
+  minio:
+    image: minio/minio
+    container_name: minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      - MINIO_ROOT_USER=minioadmin # Use .env for production
+      - MINIO_ROOT_PASSWORD=minioadmin # Use .env for production
+    volumes:
+      - minio_data:/data
+    command: server /data --console-address ":9001"
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:9000/minio/health/live" ]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+    networks:
+      - analytics_network
+    restart: unless-stopped
+
+  langflow:
+    image: langflowai/langflow:latest
+    container_name: langflow
+    ports:
+      - "7860:7860"
+    volumes:
+      - langflow_data:/root/.langflow
+    environment:
+      - LANGFLOW_DATABASE_URL=sqlite:////root/.langflow/langflow.db
+      # Add other Langflow config if needed
+    networks:
+      - analytics_network
     restart: unless-stopped
 
   ollama:
     image: ollama/ollama
-    container_name: SQL_PY_Sandbox-ollama
+    container_name: ollama
     ports:
       - "11434:11434"
     volumes:
       - ollama_data:/root/.ollama
+    # Add GPU support if available/needed
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: all
+    #           capabilities: [gpu]
     networks:
-      - sql_py_network
+      - analytics_network
+    restart: unless-stopped
+
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: qdrant
+    ports:
+      - "6333:6333" # REST API
+      - "6334:6334" # GRPC API
+    volumes:
+      - qdrant_storage:/qdrant/storage
+    environment:
+      - QDRANT_ALLOW_CORS=true
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:6333/healthz" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - analytics_network
+    restart: unless-stopped
+
+  # Integration service - Assuming Dockerfile.integration is in the root
+  # And requirements.txt for it exists
+  integration:
+    build:
+      context: .
+      dockerfile: Dockerfile.integration
+    container_name: integration-service
+    volumes:
+      - .:/app # Map current directory for development
+    depends_on:
+      - qdrant
+      - oracle
+    networks:
+      - analytics_network
+    environment:
+      - ORACLE_USER=oracle # Adjust user if needed
+      - ORACLE_PASSWORD=oracle # Use .env for production
+      - ORACLE_HOST=oracle # Service name of the oracle container
+      - ORACLE_PORT=1521
+      - ORACLE_SERVICE=FREE # Service name/SID for Oracle Free
+      - QDRANT_HOST=qdrant # Service name of the qdrant container
+      - QDRANT_PORT=6333
+      # Add other env vars needed by integration service
     restart: unless-stopped
 
 volumes:
-  minio_data:
+  vscode_data:
   oracle_data:
+  minio_data:
+  langflow_data:
   ollama_data:
+  qdrant_storage:
+
 
 networks:
-  sql_py_network:
+  analytics_network:
+    driver: bridge
+  sql-network:
+    name: sql-network
     driver: bridge

@@ -1,0 +1,96 @@
+version: '3.8'
+
+services:
+  vscode:
+    build:
+      context: ../../../docker/vscode
+      dockerfile: Dockerfile
+    container_name: SQL_PY_Sandbox-vscode
+    ports:
+      - "8080:8080"
+    volumes:
+      - ../../../src:/home/coder/project/src
+      - vscode_extensions:/home/coder/.local/share/code-server/extensions
+      - vscode_user_data:/home/coder/.local/share/code-server/User
+    environment:
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    networks:
+      - sql_py_network
+    restart: unless-stopped
+    depends_on:
+      - oracle
+      - minio
+      - ollama
+
+  minio:
+    build:
+      context: ../../../docker/minio
+    image: minio/minio
+    container_name: SQL_PY_Sandbox-minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      - MINIO_ROOT_USER=minioadmin
+      - MINIO_ROOT_PASSWORD=minioadmin
+    volumes:
+      - minio_data:/data
+      - ../../../docker/minio/config:/root/.minio
+    command: server /data --console-address ":9001"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+    networks:
+      - sql_py_network
+    restart: unless-stopped
+
+  oracle:
+    image: gvenzl/oracle-free:latest
+    container_name: SQL_PY_Sandbox-oracle
+    ports:
+      - "1521:1521"
+    environment:
+      - ORACLE_PASSWORD=oracle
+      - ORACLE_DATABASE=FREE
+    volumes:
+      - oracle_data:/opt/oracle/oradata
+      - ../../../docker/oracle/init:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD", "healthcheck.sh"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+    networks:
+      - sql_py_network
+    restart: unless-stopped
+
+  ollama:
+    image: ollama/ollama
+    container_name: SQL_PY_Sandbox-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+      - ../../../docker/ollama/models:/root/.ollama/models
+    networks:
+      - sql_py_network
+    restart: unless-stopped
+
+volumes:
+  minio_data:
+    name: sql_py_sandbox_minio_data
+  oracle_data:
+    name: sql_py_sandbox_oracle_data
+  ollama_data:
+    name: sql_py_sandbox_ollama_data
+  vscode_extensions:
+    name: sql_py_sandbox_vscode_extensions
+  vscode_user_data:
+    name: sql_py_sandbox_vscode_user_data
+
+networks:
+  sql_py_network:
+    name: sql_py_sandbox_network
+    driver: bridge

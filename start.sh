@@ -1,8 +1,11 @@
 #!/bin/bash
 
-# Start supervisord in the foreground
-supervisord -n -c /etc/supervisor/conf.d/supervisord.conf &
+# Create necessary directories
+mkdir -p workspace src
 
-# Run the test connections script
-echo "Running connection tests..."
-python test_connections.py
+# Build and start the containers
+docker-compose up --build -d
+
+echo "SQL IDE is starting up..."
+echo "Once ready, you can access it at: http://localhost:8080"
+echo "Use Ctrl+C to stop the containers when done"

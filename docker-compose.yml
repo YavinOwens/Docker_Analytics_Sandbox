@@ -180,13 +180,11 @@ services:
 
   rds-ui:
     build:
-      context: .
+      context: ./
       dockerfile: integration/Dockerfile.ui
     container_name: rds-ui
     ports:
       - "3000:3000"
-    volumes:
-      - ./rds-ui-prototype.tsx:/app/src/rds-ui-prototype.tsx
     environment:
       - NODE_ENV=development
       - REACT_APP_API_URL=http://localhost:8000

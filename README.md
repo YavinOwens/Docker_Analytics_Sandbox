@@ -14,6 +14,17 @@ This platform provides a unified interface for data analysis, machine learning, 
 - Qdrant vector database
 - Langflow and Ollama for AI/ML workflows
 
+## Databricks-Inspired UI
+
+![Databricks-Inspired UI](./screenshots/databricks-ui-screenshot.png)
+
+The platform features a Databricks-inspired UI that provides:
+- Notebook-style interface for data analysis and coding
+- Service status monitoring
+- Project management
+- Data exploration capabilities
+- SQL query interface
+
 ## Architecture
 
 The platform consists of multiple containerized services:

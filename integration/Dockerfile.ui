@@ -14,6 +14,10 @@ RUN echo '{ \
     "typescript": "^4.9.5", \
     "tailwindcss": "^2.2.19" \
   }, \
+  "devDependencies": { \
+    "@types/react": "^18.0.27", \
+    "@types/react-dom": "^18.0.10" \
+  }, \
   "scripts": { \
     "start": "react-scripts start", \
     "build": "react-scripts build", \
@@ -62,7 +66,21 @@ function App() { \
 export default App;' > src/App.tsx
 
 # Copy the index.html
-COPY ./integration/public/index.html public/
+RUN echo '<!DOCTYPE html> \
+<html lang="en"> \
+  <head> \
+    <meta charset="utf-8" /> \
+    <meta name="viewport" content="width=device-width, initial-scale=1" /> \
+    <meta name="theme-color" content="#000000" /> \
+    <meta name="description" content="RDS Databricks Prototype" /> \
+    <title>RDS Prototype</title> \
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"> \
+  </head> \
+  <body> \
+    <noscript>You need to enable JavaScript to run this app.</noscript> \
+    <div id="root"></div> \
+  </body> \
+</html>' > public/index.html
 
 # Create a type declaration file for react
 RUN echo 'declare module "*.css" { const content: { [className: string]: string }; export default content; }' > src/react-app-env.d.ts
@@ -90,7 +108,7 @@ RUN echo '{ \
 }' > tsconfig.json
 
 # Build for production
-RUN npm install -g react-scripts && react-scripts build
+RUN npm install -g react-scripts && npm install --save-dev @types/react @types/react-dom && react-scripts build
 
 # Install serve to run the application
 RUN npm install -g serve

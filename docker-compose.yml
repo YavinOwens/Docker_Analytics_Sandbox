@@ -60,13 +60,14 @@ services:
     restart: unless-stopped
 
   oracle:
-    image: gvenzl/oracle-free:latest
+    image: gvenzl/oracle-xe:21-slim
     container_name: oracle
     ports:
       - "1521:1521"
     environment:
-      - ORACLE_PASSWORD=oracle # Use .env for production
-      - ORACLE_DATABASE=FREE
+      - ORACLE_PASSWORD=oracle
+      - APP_USER=analytics
+      - APP_USER_PASSWORD=analytics
     volumes:
       - oracle_data:/opt/oracle/oradata
     healthcheck:
@@ -155,25 +156,44 @@ services:
   # And requirements.txt for it exists
   integration:
     build:
-      context: .
-      dockerfile: Dockerfile.integration
+      context: ./integration
+      dockerfile: Dockerfile
     container_name: integration-service
+    ports:
+      - "8000:8000"
     volumes:
-      - .:/app # Map current directory for development
-    depends_on:
-      - qdrant
-      - oracle
+      - ./integration:/app
+    environment:
+      - ORACLE_HOME=/usr/lib/oracle/21/client64
+      - LD_LIBRARY_PATH=/usr/lib/oracle/21/client64/lib
+      - PATH=/usr/lib/oracle/21/client64/bin:$PATH
     networks:
       - analytics_network
+    depends_on:
+      - oracle
+      - spark-master
+      - minio
+      - qdrant
+      - ollama
+      - langflow
+    restart: unless-stopped
+
+  rds-ui:
+    build:
+      context: .
+      dockerfile: integration/Dockerfile.ui
+    container_name: rds-ui
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./rds-ui-prototype.tsx:/app/src/rds-ui-prototype.tsx
     environment:
-      - ORACLE_USER=oracle # Adjust user if needed
-      - ORACLE_PASSWORD=oracle # Use .env for production
-      - ORACLE_HOST=oracle # Service name of the oracle container
-      - ORACLE_PORT=1521
-      - ORACLE_SERVICE=FREE # Service name/SID for Oracle Free
-      - QDRANT_HOST=qdrant # Service name of the qdrant container
-      - QDRANT_PORT=6333
-      # Add other env vars needed by integration service
+      - NODE_ENV=development
+      - REACT_APP_API_URL=http://localhost:8000
+    networks:
+      - analytics_network
+    depends_on:
+      - integration
     restart: unless-stopped
 
 volumes:

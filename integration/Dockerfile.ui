@@ -32,14 +32,62 @@ RUN npm install
 # Create directory structure
 RUN mkdir -p src/components public
 
+# Copy the RDS UI prototype
+COPY ./rds-ui-prototype.tsx src/rds-ui-prototype.tsx
+
+# Create the index files
+RUN echo 'import React from "react"; \
+import ReactDOM from "react-dom/client"; \
+import App from "./App"; \
+\
+const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement); \
+\
+root.render( \
+  <React.StrictMode> \
+    <App /> \
+  </React.StrictMode> \
+);' > src/index.tsx
+
+RUN echo 'import React from "react"; \
+import DatabricksUI from "./rds-ui-prototype"; \
+\
+function App() { \
+  return ( \
+    <div className="App"> \
+      <DatabricksUI /> \
+    </div> \
+  ); \
+} \
+\
+export default App;' > src/App.tsx
+
 # Copy the index.html
 COPY ./integration/public/index.html public/
-COPY ./integration/src/index.tsx src/
-COPY ./integration/src/App.tsx src/
-COPY ./rds-ui-prototype.tsx src/components/
 
 # Create a type declaration file for react
 RUN echo 'declare module "*.css" { const content: { [className: string]: string }; export default content; }' > src/react-app-env.d.ts
+
+# Add a tsconfig.json
+RUN echo '{ \
+  "compilerOptions": { \
+    "target": "es5", \
+    "lib": ["dom", "dom.iterable", "esnext"], \
+    "allowJs": true, \
+    "skipLibCheck": true, \
+    "esModuleInterop": true, \
+    "allowSyntheticDefaultImports": true, \
+    "strict": true, \
+    "forceConsistentCasingInFileNames": true, \
+    "noFallthroughCasesInSwitch": true, \
+    "module": "esnext", \
+    "moduleResolution": "node", \
+    "resolveJsonModule": true, \
+    "isolatedModules": true, \
+    "noEmit": true, \
+    "jsx": "react-jsx" \
+  }, \
+  "include": ["src"] \
+}' > tsconfig.json
 
 # Build for production
 RUN npm install -g react-scripts && react-scripts build

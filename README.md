@@ -1,5 +1,122 @@
 # Docker Analytics Sandbox
 
+A comprehensive data analytics platform that integrates various data tools and services in Docker containers.
+
+## Overview
+
+This platform provides a unified interface for data analysis, machine learning, and data visualization, featuring:
+
+- React-based UI with Databricks-inspired design
+- Oracle database integration
+- Apache Spark integration
+- MinIO object storage
+- FastAPI backend services
+- Qdrant vector database
+- Langflow and Ollama for AI/ML workflows
+
+## Architecture
+
+The platform consists of multiple containerized services:
+
+- **React App UI**: Modern web interface for data analysis and visualization
+- **Integration Service**: FastAPI backend that connects to various data sources
+- **Oracle Database**: For relational data storage and SQL queries
+- **Apache Spark**: For distributed data processing
+- **MinIO**: For object storage (S3-compatible)
+- **Qdrant**: Vector database for similarity search
+- **Langflow**: Visual AI/ML workflow builder
+- **Ollama**: AI model serving
+
+## UI Components
+
+The UI is built using React with Tailwind CSS for styling. The main components include:
+
+- `App.js`: Main application entry point
+- `DatabricksUI.js`: The primary UI component with a Databricks-inspired interface
+- `DataComponent.js`: Component for data exploration and SQL queries
+- `ReposComponent.js`: Component for repository and file management
+
+## File Structure
+
+```
+Docker_Analytics_Sandbox/
+├── docker-compose.yml              # Docker services configuration
+├── integration/                    # Backend integration service
+│   ├── Dockerfile                  # Docker build for integration service
+│   ├── oracle_client.py            # Oracle database client
+│   └── standalone_api.py           # FastAPI application
+├── src/                            # Frontend source code
+│   └── react-app/                  # React application
+│       ├── Dockerfile              # Docker build for React app
+│       ├── package.json            # Node.js dependencies
+│       └── src/                    # React source files
+│           ├── App.js              # Main App component
+│           ├── components/         # UI components
+│           │   ├── DataComponent.js   # Data exploration component
+│           │   └── ReposComponent.js  # Repository management
+│           ├── services/           # API client services
+│           │   ├── minioClient.js  # MinIO integration
+│           │   └── oracleClient.js # Oracle DB integration
+│           └── index.js            # React entry point
+```
+
+## Getting Started
+
+### Prerequisites
+
+- Docker and Docker Compose
+- Git
+
+### Installation and Setup
+
+1. Clone this repository:
+   ```
+   git clone https://github.com/yourusername/Docker_Analytics_Sandbox.git
+   cd Docker_Analytics_Sandbox
+   ```
+
+2. Start the containers:
+   ```
+   docker compose up -d
+   ```
+
+3. Access the platform:
+   - React App UI: http://localhost:3001
+   - Integration API: http://localhost:8000
+   - MinIO Console: http://localhost:9001
+   - Langflow: http://localhost:7860
+
+## Available Services
+
+| Service | URL | Description |
+|---------|-----|-------------|
+| React App | http://localhost:3001 | Main user interface |
+| RDS UI | http://localhost:3000 | Alternative UI |
+| Integration API | http://localhost:8000 | Backend API |
+| SQL IDE | http://localhost:8080 | SQL development environment |
+| MinIO | http://localhost:9001 | Object storage UI |
+| Langflow | http://localhost:7860 | Workflow builder |
+| Spark Master UI | http://localhost:8081 | Spark cluster management |
+
+## Development
+
+The UI is built using:
+- React 18
+- Tailwind CSS for styling
+- Service integration components
+
+The backend uses:
+- FastAPI for the REST API
+- cx_Oracle for Oracle database connections
+- Various connectors for different services
+
+## Note on Oracle Integration
+
+The Oracle integration uses ARM64-compatible libraries for Apple Silicon machines (M1/M2/M3). Mock data is provided when the Oracle service is unavailable.
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Services
 

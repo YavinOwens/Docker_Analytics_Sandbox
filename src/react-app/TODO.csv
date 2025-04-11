@@ -1,0 +1,33 @@
+Component,Improvement,Suggestion,Status,Priority,Size
+Repos,Connect to MinIO storage,Implement file browser with MinIO integration,Pending,High,XL
+Repos,Add file browser,Implement folder navigation and file list,Pending,High,L
+Repos,Add file type icons,Display appropriate icons for different file types,Pending,Medium,M
+Repos,Add file metadata,Show file size and last modified date,Pending,Medium,M
+Repos,Add context menu,Implement right-click menu for file operations,Pending,Medium,M
+Repos,Add breadcrumb navigation,Show current location in file hierarchy,Pending,Medium,S
+Repos,Add file upload,Implement file upload functionality,Pending,High,M
+Repos,Add file search,Implement search within file browser,Pending,Medium,M
+Users,Integrate with Oracle database,Add user management and authentication,Pending,High,XL
+Users,Add user roles,Implement role-based access control,Pending,High,L
+Users,Add user search,Implement user search and filtering,Pending,Medium,M
+Users,Add user details,Create detailed user profile view,Pending,Medium,M
+Users,Add activity log,Track and display user activities,Pending,Medium,L
+Users,Add user management,Implement CRUD operations for users,Pending,High,L
+Users,Add user groups,Implement team/group management,Pending,Medium,L
+Shared,Connect to workspace MinIO,Implement shared workspace functionality,Pending,High,XL
+Shared,Add collaboration,Implement real-time collaboration features,Pending,High,XL
+Shared,Add sharing controls,Implement granular sharing permissions,Pending,High,L
+Shared,Add version history,Track and display file versions,Pending,Medium,L
+Shared,Add comments,Implement file commenting system,Pending,Medium,M
+Shared,Add access control,Implement detailed access permissions,Pending,High,L
+Shared,Add activity feed,Show recent shared workspace activities,Pending,Medium,M
+UI,Add loading states,Show loading indicators during data fetching,Pending,Medium,S
+UI,Add error handling,Implement proper error messages and fallbacks,Pending,Medium,M
+UI,Add keyboard shortcuts,Add keyboard navigation and shortcuts,Pending,Low,M
+UI,Add responsive design,Improve mobile and tablet experience,Pending,Medium,L
+UI,Add dark mode,Implement dark theme support,Pending,Low,M
+UI,Add themes,Add customizable color themes,Pending,Low,M
+UI,Add tooltips,Implement helpful tooltips and hints,Pending,Low,S
+UI,Add keyboard nav,Implement keyboard navigation,Pending,Low,M
+UI,Add drag and drop,Implement drag and drop for file uploads,Pending,Medium,M
+UI,Add file preview,Preview common file types in the browser,Pending,Medium,L 
